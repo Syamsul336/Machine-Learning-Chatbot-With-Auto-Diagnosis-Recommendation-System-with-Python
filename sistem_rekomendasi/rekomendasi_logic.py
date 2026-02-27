@@ -35,12 +35,20 @@ def cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
     if total == total_index:
       list_gejala_user.append(1)
       flag_counter += 1
-      cosim_diagnosis()
+      cosim_diagnosis(reset_counter, flag_counter, list_gejala_user, 
+                    data_enc2, kolesterol_user, asam_urat_user, gula_darah_user, 
+                    data_enc, input_gejala, hasil_diagnosa, persentase, 
+                    penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit, 
+                    penyakit_label, data_food_style)
       return
     elif total == 0:
       list_gejala_user.append(0)
       flag_counter += 1
-      cosim_diagnosis()
+      cosim_diagnosis(reset_counter, flag_counter, list_gejala_user, 
+                    data_enc2, kolesterol_user, asam_urat_user, gula_darah_user, 
+                    data_enc, input_gejala, hasil_diagnosa, persentase, 
+                    penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit, 
+                    penyakit_label, data_food_style)
       return
     else:
       # input_gejala = input(f"apakah anda merasa {data_enc2.columns[flag_counter]} ")
