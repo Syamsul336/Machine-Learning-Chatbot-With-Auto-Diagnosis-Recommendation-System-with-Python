@@ -380,7 +380,7 @@ Proyek ini didistribusikan di bawah lisensi MIT. Lihat `LICENSE` untuk detail le
 *Statistics Graduate · Aspiring Data Scientist*
 
 [![GitHub](https://img.shields.io/badge/GitHub-Syamsul336-181717?style=flat-square&logo=github)](https://github.com/Syamsul336)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin)](https://linkedin.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/muhammad-syamsul-bahri/)
 
 </div>
 
