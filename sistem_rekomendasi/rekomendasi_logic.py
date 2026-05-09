@@ -63,10 +63,16 @@ def cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
         Semua nilai diperbarui dan dikembalikan ke app.py untuk di-assign ke global variables.
     """
 
-    # Guard: Hentikan eksekusi jika sudah ditandai selesai
-    if flag_counter == "stop":
-        print("udah bos")
-        return
+    # Guard: Hentikan eksekusi jika sudah ditandai selesai (-1 = diagnosa selesai)
+    # Catatan: dulu cek "stop" (string) — itu dead code karena flag_counter selalu int.
+    # Sekarang dicek -1 dan tetap kembalikan tuple supaya pemanggil bisa unpack dengan aman.
+    if flag_counter == -1:
+        return (
+            reset_counter, flag_counter, list_gejala_user, data_enc2,
+            kolesterol_user, asam_urat_user, gula_darah_user, data_enc,
+            input_gejala, hasil_diagnosa, persentase, penjelasan_penyakit,
+            gaya_hidup_penyakit, makanan_penyakit
+        )
 
     # =========================================================================
     # TAHAP A: Input Laboratorium (flag_counter == 0)
@@ -113,12 +119,14 @@ def cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
             flag_counter += 1
 
             # Rekursi untuk memproses kolom berikutnya tanpa menunggu input
-            cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
-                            data_enc2, kolesterol_user, asam_urat_user, gula_darah_user,
-                            data_enc, input_gejala, hasil_diagnosa, persentase,
-                            penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit,
-                            penyakit_label, data_food_style)
-            return
+            # PENTING: return hasil rekursi (tuple), JANGAN return None.
+            return cosim_diagnosis(
+                reset_counter, flag_counter, list_gejala_user,
+                data_enc2, kolesterol_user, asam_urat_user, gula_darah_user,
+                data_enc, input_gejala, hasil_diagnosa, persentase,
+                penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit,
+                penyakit_label, data_food_style
+            )
 
         elif total == 0:
             # SKIP: Tidak ada penyakit aktif yang memiliki gejala ini.
@@ -127,12 +135,14 @@ def cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
             flag_counter += 1
 
             # Rekursi untuk memproses kolom berikutnya
-            cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
-                            data_enc2, kolesterol_user, asam_urat_user, gula_darah_user,
-                            data_enc, input_gejala, hasil_diagnosa, persentase,
-                            penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit,
-                            penyakit_label, data_food_style)
-            return
+            # PENTING: return hasil rekursi (tuple), JANGAN return None.
+            return cosim_diagnosis(
+                reset_counter, flag_counter, list_gejala_user,
+                data_enc2, kolesterol_user, asam_urat_user, gula_darah_user,
+                data_enc, input_gejala, hasil_diagnosa, persentase,
+                penjelasan_penyakit, gaya_hidup_penyakit, makanan_penyakit,
+                penyakit_label, data_food_style
+            )
 
         else:
             # TANYA: Gejala ini bersifat diskriminatif (sebagian penyakit punya, sebagian tidak)
@@ -152,8 +162,11 @@ def cosim_diagnosis(reset_counter, flag_counter, list_gejala_user,
 
             # Tambahkan vektor user sebagai baris baru di bawah data penyakit
             # (dibutuhkan untuk menghitung similarity antara user vs setiap penyakit)
-            data_temp = data_temp.append(
-                pd.DataFrame([list_gejala_user], columns=list(data_temp.columns)),
+            # Catatan: DataFrame.append() di-deprecate sejak pandas 1.4 dan dihapus di
+            # pandas 2.0. Diganti dengan pd.concat() yang merupakan pengganti resminya.
+            data_temp = pd.concat(
+                [data_temp,
+                 pd.DataFrame([list_gejala_user], columns=list(data_temp.columns))],
                 ignore_index=False
             )
 
