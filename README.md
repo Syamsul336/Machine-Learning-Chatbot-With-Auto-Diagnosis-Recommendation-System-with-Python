@@ -392,6 +392,4 @@ Proyek ini didistribusikan di bawah lisensi MIT. Lihat `LICENSE` untuk detail le
 
 **[🌐 Live Demo](https://web-production-e1434.up.railway.app/)** · **[🐛 Report Bug](https://github.com/Syamsul336/himedic-app/issues)** · **[💡 Request Feature](https://github.com/Syamsul336/himedic-app/issues)**
 
-*Dibuat dengan ❤️ untuk mendukung kesadaran kesehatan masyarakat Indonesia*
-
 </div>
